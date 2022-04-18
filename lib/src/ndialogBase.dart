@@ -32,83 +32,86 @@ class NDialog extends StatelessWidget {
     final DialogStyle style = dialogStyle ?? DialogStyle();
 
     String label = style.semanticsLabel;
-    Widget dialogChild = IntrinsicWidth(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          title != null
-              ? Padding(
-                  padding: style.titlePadding ?? EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
-                  child: DefaultTextStyle(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Semantics(
-                          child: title,
-                          namesRoute: true,
-                          label: label,
-                        ),
-                        style.titleDivider ?? false
-                            ? Divider()
-                            : Container(
-                                height: 10.0,
-                              )
-                      ],
-                    ),
-                    style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.headline6,
-                  ),
-                )
-              : Container(),
-          content != null
-              ? Flexible(
-                  child: Padding(
-                    padding: style.contentPadding ?? EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
+    Widget dialogChild = Container(
+      color: dialogTheme?.backgroundColor,
+      child: IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            title != null
+                ? Padding(
+                    padding: style.titlePadding ?? EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
                     child: DefaultTextStyle(
-                      child: Semantics(child: content),
-                      style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Semantics(
+                            child: title,
+                            namesRoute: true,
+                            label: label,
+                          ),
+                          style.titleDivider ?? false
+                              ? Divider()
+                              : Container(
+                                  height: 10.0,
+                                )
+                        ],
+                      ),
+                      style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.headline6,
                     ),
-                  ),
-                )
-              : Container(),
-          actions != null
-              ? Theme(
-                  data: ThemeData(
-                    buttonTheme: ButtonThemeData(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
+                  )
+                : Container(),
+            content != null
+                ? Flexible(
+                    child: Padding(
+                      padding: style.contentPadding ?? EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
+                      child: DefaultTextStyle(
+                        child: Semantics(child: content),
+                        style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
                       ),
                     ),
-                  ),
-                  child: actions.length <= 3
-                      ? IntrinsicHeight(
-                          child: Row(
+                  )
+                : Container(),
+            actions != null
+                ? Theme(
+                    data: ThemeData(
+                      buttonTheme: ButtonThemeData(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                      ),
+                    ),
+                    child: actions.length <= 3
+                        ? IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: List.generate(
+                                actions.length,
+                                (index) {
+                                  return Expanded(child: actions[index]);
+                                },
+                              ),
+                            ),
+                          )
+                        : Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: List.generate(
                               actions.length,
                               (index) {
-                                return Expanded(child: actions[index]);
+                                return SizedBox(
+                                  height: 50.0,
+                                  child: actions[index],
+                                );
                               },
                             ),
                           ),
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: List.generate(
-                            actions.length,
-                            (index) {
-                              return SizedBox(
-                                height: 50.0,
-                                child: actions[index],
-                              );
-                            },
-                          ),
-                        ),
-                )
-              : SizedBox.shrink(),
-        ],
+                  )
+                : SizedBox.shrink(),
+          ],
+        ),
       ),
     );
 
@@ -122,7 +125,9 @@ class NDialog extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             elevation: style.elevation ?? 24,
             color: style.backgroundColor,
-            shape: style.borderRadius != null ? RoundedRectangleBorder(borderRadius: style.borderRadius) : style.shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+            shape: style.borderRadius != null
+                ? RoundedRectangleBorder(borderRadius: style.borderRadius)
+                : style.shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           ),
         ),
       ),
@@ -238,7 +243,8 @@ class ZoomDialog extends DialogBackground {
   ///Action before dialog dismissed
   final Function onDismiss;
 
-  const ZoomDialog({Key key, this.backgroundColor, @required this.child, this.initZoomScale = 0, this.blur, this.zoomScale = 3, this.onDismiss}) : super(key: key);
+  const ZoomDialog({Key key, this.backgroundColor, @required this.child, this.initZoomScale = 0, this.blur, this.zoomScale = 3, this.onDismiss})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -307,6 +313,7 @@ class DialogBackground extends StatelessWidget {
         barrierColor: barrierColor ?? Colors.black.withOpacity(.5),
         transitionDuration: transitionDuration,
       ).show(context);
+
   @override
   Widget build(BuildContext context) {
     return Material(
