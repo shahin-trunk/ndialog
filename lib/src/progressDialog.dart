@@ -1,6 +1,3 @@
-///By Mochamad Nizwar Syafuan
-///nizwar@merahputih.id
-///==================================================================================
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
 import 'package:ndialog/src/utils.dart';
@@ -149,7 +146,7 @@ class ProgressDialog implements _ProgressDialog {
     }
   }
 
-  ///Dissmiss progress dialog
+  ///Dismiss progress dialog
   void dismiss() {
     if (_show) {
       _show = false;
@@ -349,17 +346,14 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements
               Container(
                 padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
                 alignment: Alignment.centerRight,
-                child: FlatButton(
-                  padding: EdgeInsets.only(),
-                  highlightColor: Colors.white.withOpacity(.3),
-                  splashColor: Theme.of(context).accentColor.withOpacity(.2),
+                child: TextButton(
                   onPressed: () {
                     if (widget.onCancel != null) widget.onCancel();
                     Navigator.pop(context);
                   },
                   child: DefaultTextStyle(
                     child: widget.cancelText ?? Text("Cancel"),
-                    style: TextStyle(color: Theme.of(context).accentColor),
+                    style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
               )
@@ -396,7 +390,7 @@ class CustomProgressDialog implements _CustomProgressDialog {
   ///The context
   final BuildContext context;
 
-  ///Show as the progress, nullable to aplied to default loading widget
+  ///Show as the progress, nullable to applied to default loading widget
   final Widget loadingWidget;
 
   ///The (optional) on cancel button that will display at the bottom of the dialog.

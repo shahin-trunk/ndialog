@@ -1,6 +1,3 @@
-///By Mochamad Nizwar Syafuan
-///nizwar@merahputih.id
-///==================================================================================
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -32,86 +29,83 @@ class NDialog extends StatelessWidget {
     final DialogStyle style = dialogStyle ?? DialogStyle();
 
     String label = style.semanticsLabel;
-    Widget dialogChild = Container(
-      color: dialogTheme?.backgroundColor,
-      child: IntrinsicWidth(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            title != null
-                ? Padding(
-                    padding: style.titlePadding ?? EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
-                    child: DefaultTextStyle(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Semantics(
-                            child: title,
-                            namesRoute: true,
-                            label: label,
-                          ),
-                          style.titleDivider ?? false
-                              ? Divider()
-                              : Container(
-                                  height: 10.0,
-                                )
-                        ],
-                      ),
-                      style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.headline6,
-                    ),
-                  )
-                : Container(),
-            content != null
-                ? Flexible(
-                    child: Padding(
-                      padding: style.contentPadding ?? EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
-                      child: DefaultTextStyle(
-                        child: Semantics(child: content),
-                        style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
-                      ),
-                    ),
-                  )
-                : Container(),
-            actions != null
-                ? Theme(
-                    data: ThemeData(
-                      buttonTheme: ButtonThemeData(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(0),
+    Widget dialogChild = IntrinsicWidth(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          title != null
+              ? Padding(
+                  padding: style.titlePadding ?? EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+                  child: DefaultTextStyle(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Semantics(
+                          child: title,
+                          namesRoute: true,
+                          label: label,
                         ),
+                        style.titleDivider ?? false
+                            ? Divider()
+                            : Container(
+                                height: 10.0,
+                              )
+                      ],
+                    ),
+                    style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.headline6,
+                  ),
+                )
+              : Container(),
+          content != null
+              ? Flexible(
+                  child: Padding(
+                    padding: style.contentPadding ?? EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
+                    child: DefaultTextStyle(
+                      child: Semantics(child: content),
+                      style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
+                    ),
+                  ),
+                )
+              : Container(),
+          actions != null
+              ? Theme(
+                  data: ThemeData(
+                    buttonTheme: ButtonThemeData(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
                       ),
                     ),
-                    child: actions.length <= 3
-                        ? IntrinsicHeight(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: List.generate(
-                                actions.length,
-                                (index) {
-                                  return Expanded(child: actions[index]);
-                                },
-                              ),
-                            ),
-                          )
-                        : Column(
+                  ),
+                  child: actions.length <= 3
+                      ? IntrinsicHeight(
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
                             children: List.generate(
                               actions.length,
                               (index) {
-                                return SizedBox(
-                                  height: 50.0,
-                                  child: actions[index],
-                                );
+                                return Expanded(child: actions[index]);
                               },
                             ),
                           ),
-                  )
-                : SizedBox.shrink(),
-          ],
-        ),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(
+                            actions.length,
+                            (index) {
+                              return SizedBox(
+                                height: 50.0,
+                                child: actions[index],
+                              );
+                            },
+                          ),
+                        ),
+                )
+              : SizedBox.shrink(),
+        ],
       ),
     );
 
@@ -372,7 +366,7 @@ class DialogStyle {
   ///Set circular border radius for your dialog
   final BorderRadius borderRadius;
 
-  ///Set semanticslabel for Title
+  ///Set semanticsLabel for Title
   final String semanticsLabel;
 
   ///Set padding for your Title
